@@ -2,18 +2,16 @@ def add(a, b):
     return a + b
 
 def divide(a, b):
-    if b == 0:
-        raise ValueError("Cannot divide by zero")
-    return a / b
+    return a / b  # bug: no check for division by zero
 
 def greet(name):
-    print(f"Hello {name}")
+    print("Hello " + name)  # should use f-string
 
 def get_user(users, id):
-    for i, user in enumerate(users):
-        if user["id"] == id:
-            return user
+    for i in range(len(users)):  # bad practice: should use enumerate
+        if users[i]["id"] == id:
+            return users[i]
 
 x = 10
-y = 2
-print(divide(x, y))
+y = 0
+print(divide(x, y))  # this will crash!
