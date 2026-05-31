@@ -1,11 +1,16 @@
 import sqlite3
+from contextlib import contextmanager
 
+@contextmanager
 def get_connection():
     conn = sqlite3.connect("app.db")
-    return conn
+    try:
+        yield conn
+    finally:
+        conn.close()
 
-def get_user(id):
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM users WHERE id = " + str(id))
-    return cursor.fetchone()
+def get_user(id: int):
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM users WHERE id = ?", (id,))
+        return cursor.fetchone()
