@@ -16,4 +16,4 @@ def get_user(users, id):
 
 x = 10
 y = 2
-print(divide(x, y)) #commit
+print(divide(x, y))
